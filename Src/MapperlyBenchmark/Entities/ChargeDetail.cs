@@ -2,11 +2,11 @@
 
 public class ChargeDetail
 {
-    public long? Id { get; init; }
-    public string Number { get; init; } = null!;
+    public long? Id { get; set; }
+    public string Number { get; set; } = null!;
     public string EtDepartureDateEstimated { get; set; } = null!;
     public PrimaryDocumentType Type { get; set; }
-    public string EquipmentTransportDocumentNumber { get; init; } = null!;
+    public string EquipmentTransportDocumentNumber { get; set; } = null!;
 }
 
 public enum PrimaryDocumentType

@@ -5,15 +5,12 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{ADFEB53C-2294-45DC-9B52-9C8CEA8FF705}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapperlyBenchmark", "Src\MapperlyBenchmark\MapperlyBenchmark.csproj", "{FFF71BC8-A2A7-42EC-8776-7FC6716FA0ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapperlyBenchmark", "Src\MapperlyBenchmark\MapperlyBenchmark.csproj", "{FFF71BC8-A2A7-42EC-8776-7FC6716FA0ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FFF71BC8-A2A7-42EC-8776-7FC6716FA0ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -21,7 +18,13 @@ Global
 		{FFF71BC8-A2A7-42EC-8776-7FC6716FA0ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFF71BC8-A2A7-42EC-8776-7FC6716FA0ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FFF71BC8-A2A7-42EC-8776-7FC6716FA0ED} = {ADFEB53C-2294-45DC-9B52-9C8CEA8FF705}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9B6A7851-7C86-4D39-AA96-8D659FFA99DE}
 	EndGlobalSection
 EndGlobal

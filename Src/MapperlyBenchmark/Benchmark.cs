@@ -8,7 +8,6 @@ using MapperlyBenchmark.Mappers;
 public class Benchmark
 {
     private IMapper autoMapper;
-    private ChargeDetailsMapperly mapperly;
     private IList<FcrDetail> fcrDetails;
 
     [GlobalSetup]
@@ -32,8 +31,10 @@ public class Benchmark
         });
 
         autoMapper = configuration.CreateMapper();
-        mapperly = new ChargeDetailsMapperly();
-    }
+
+        var chargeDetails = ChargeDetailsAutoMapperBenchmark();
+        var chargeDetails2 = ChargeDetailsMapperlyBenchmark();
+     }
 
     [Benchmark]
     public List<ChargeDetail> ChargeDetailsAutoMapperBenchmark()
@@ -44,6 +45,6 @@ public class Benchmark
     [Benchmark]
     public List<ChargeDetail> ChargeDetailsMapperlyBenchmark()
     {
-        return mapperly.FcrDetailToChargeDetail(fcrDetails);
+        return fcrDetails.Select(x => x.MapToChargeDetail()).ToList();
     }
 }
