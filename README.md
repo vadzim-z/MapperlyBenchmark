@@ -12,12 +12,12 @@ The benchmarking tests were run using BenchmarkDotNet on a machine with the foll
 
 The results are as follows:
 
-|                           Method |     Mean |   Error |   StdDev |   Median |
-|--------------------------------- |---------:|--------:|---------:|---------:|
-| ChargeDetailsAutoMapperBenchmark | 349.6 ns | 9.08 ns | 25.77 ns | 341.1 ns |
-|   ChargeDetailsMapperlyBenchmark | 114.0 ns | 3.36 ns |  9.59 ns | 110.5 ns |
+|                           Method |     Mean |   Error |   StdDev |
+|--------------------------------- |---------:|--------:|---------:|
+| ChargeDetailsAutoMapperBenchmark | 295.2 ns | 5.50 ns | 10.99 ns |
+|   ChargeDetailsMapperlyBenchmark | 101.0 ns | 2.03 ns |  4.05 ns |
 
-The `Mean` column shows the average time taken to run each method. The `Error` column shows half of the 99.9% confidence interval, and the `StdDev` column shows the standard deviation of all measurements. The `Median` column shows the value separating the higher half of all measurements (50th percentile).
+The `Mean` column shows the average time taken to run each method. The `Error` column shows half of the 99.9% confidence interval, and the `StdDev` column shows the standard deviation of all measurements.
 
 From these results, we can see that Mapperly is significantly faster than AutoMapper in this benchmark.
 
