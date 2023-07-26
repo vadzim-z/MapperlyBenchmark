@@ -24,6 +24,13 @@ public class Benchmark
                 Type = "Fcr"
             })
             .Build();
+        var libraries = _builder
+            .CreateListOfSize<Library>(size)
+            .All()
+            .With((x, i) => x.Books = _builder
+                .CreateListOfSize<Book>(size)
+                .Build())
+            .Build();
 
         var configuration = new MapperConfiguration(cfg =>
         {
@@ -34,7 +41,8 @@ public class Benchmark
 
         var chargeDetails = ChargeDetailsAutoMapperBenchmark();
         var chargeDetails2 = ChargeDetailsMapperlyBenchmark();
-     }
+        var libraryDtos = LibraryMapperlyBenchmark(libraries);
+    }
 
     [Benchmark]
     public List<ChargeDetail> ChargeDetailsAutoMapperBenchmark()
@@ -46,5 +54,11 @@ public class Benchmark
     public List<ChargeDetail> ChargeDetailsMapperlyBenchmark()
     {
         return fcrDetails.Select(x => x.MapToChargeDetail()).ToList();
+    }
+    
+    [Benchmark]
+    public IList<LibraryDto> LibraryMapperlyBenchmark(IList<Library> libraries)
+    {
+        return libraries.Select(x => x.Map()).ToList();
     }
 }
