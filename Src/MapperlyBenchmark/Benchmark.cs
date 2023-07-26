@@ -35,13 +35,16 @@ public class Benchmark
         var configuration = new MapperConfiguration(cfg =>
         {
             cfg.AddProfile<ChargeDetailsAutomapper>();
+            cfg.AddProfile<BookAutomapper>();
+            cfg.AddProfile<LibraryAutomapper>();
         });
 
         autoMapper = configuration.CreateMapper();
 
         var chargeDetails = ChargeDetailsAutoMapperBenchmark();
         var chargeDetails2 = ChargeDetailsMapperlyBenchmark();
-        var libraryDtos = LibraryMapperlyBenchmark(libraries);
+        var libraryDtos = LibraryAutoMapperBenchmark(libraries);
+        var libraryDtos2 = LibraryMapperlyBenchmark(libraries);
     }
 
     [Benchmark]
@@ -60,5 +63,11 @@ public class Benchmark
     public IList<LibraryDto> LibraryMapperlyBenchmark(IList<Library> libraries)
     {
         return libraries.Select(x => x.Map()).ToList();
+    }
+
+    [Benchmark]
+    public List<LibraryDto> LibraryAutoMapperBenchmark(IList<Library> libraries)
+    {
+        return autoMapper.Map<List<LibraryDto>>(libraries);
     }
 }

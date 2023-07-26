@@ -6,11 +6,10 @@ namespace MapperlyBenchmark.Mappers;
 [Mapper]
 public static partial class LibraryMapperly
 {
-    [ObjectFactory]
-    private static BookDto CreateBookDto(Book book)
-        => book.Map();
-
     public static partial LibraryDto Map(this Library lib);
+
+    private static BookDto MapBook(Book book)
+        => book.Map();
 }
 
 [Mapper]
