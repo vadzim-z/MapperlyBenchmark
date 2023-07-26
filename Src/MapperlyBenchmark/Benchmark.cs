@@ -8,7 +8,8 @@ using MapperlyBenchmark.Mappers;
 public class Benchmark
 {
     private IMapper autoMapper;
-    private IList<FcrDetail> fcrDetails;
+    private IList<FcrDetail> _fcrDetails;
+    private IList<Library> _libraries;
 
     [GlobalSetup]
     public void Setup()
@@ -16,7 +17,7 @@ public class Benchmark
         var _faker = new Faker();
         var _builder = new Builder();
         var size = _faker.Random.Int(2, 5);
-        fcrDetails = _builder
+        _fcrDetails = _builder
             .CreateListOfSize<FcrDetail>(size)
             .All()
             .WithFactory(_ => new FcrDetail
@@ -24,7 +25,7 @@ public class Benchmark
                 Type = "Fcr"
             })
             .Build();
-        var libraries = _builder
+        _libraries = _builder
             .CreateListOfSize<Library>(size)
             .All()
             .With((x, i) => x.Books = _builder
@@ -43,31 +44,31 @@ public class Benchmark
 
         var chargeDetails = ChargeDetailsAutoMapperBenchmark();
         var chargeDetails2 = ChargeDetailsMapperlyBenchmark();
-        var libraryDtos = LibraryAutoMapperBenchmark(libraries);
-        var libraryDtos2 = LibraryMapperlyBenchmark(libraries);
+        var libraryDtos = LibraryAutoMapperBenchmark();
+        var libraryDtos2 = LibraryMapperlyBenchmark();
     }
 
     [Benchmark]
     public List<ChargeDetail> ChargeDetailsAutoMapperBenchmark()
     {
-        return autoMapper.Map<List<ChargeDetail>>(fcrDetails);
+        return autoMapper.Map<List<ChargeDetail>>(_fcrDetails);
     }
 
     [Benchmark]
     public List<ChargeDetail> ChargeDetailsMapperlyBenchmark()
     {
-        return fcrDetails.Select(x => x.MapToChargeDetail()).ToList();
+        return _fcrDetails.Select(x => x.MapToChargeDetail()).ToList();
     }
     
     [Benchmark]
-    public IList<LibraryDto> LibraryMapperlyBenchmark(IList<Library> libraries)
+    public IList<LibraryDto> LibraryMapperlyBenchmark()
     {
-        return libraries.Select(x => x.Map()).ToList();
+        return _libraries.Select(x => x.Map()).ToList();
     }
 
     [Benchmark]
-    public List<LibraryDto> LibraryAutoMapperBenchmark(IList<Library> libraries)
+    public List<LibraryDto> LibraryAutoMapperBenchmark()
     {
-        return autoMapper.Map<List<LibraryDto>>(libraries);
+        return autoMapper.Map<List<LibraryDto>>(_libraries);
     }
 }
