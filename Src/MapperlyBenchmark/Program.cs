@@ -2,6 +2,6 @@
 
 using BenchmarkDotNet.Running;
 
-BenchmarkRunner.Run<Benchmark>();
-//var bcrk = new Benchmark();
-//bcrk.Setup();
+//BenchmarkRunner.Run<Benchmark>();
+var bcrk = new Benchmark();
+bcrk.Setup();
