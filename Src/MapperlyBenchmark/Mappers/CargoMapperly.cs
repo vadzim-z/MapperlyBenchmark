@@ -21,12 +21,21 @@ public static partial class CargoMapper
     public static partial ChargeItem Map(this CargoModel cargo);
 
     private static ChargeItem.CostDetail MapCostAndRevenueDetail(InvoiceCostDetail costDetail)
-        => new()
-        {
-            Size = costDetail.Size,
-            Type = costDetail.Type,
-            Booking = costDetail.MapBooking(),
-        };
+        => costDetail.Map();
+}
+
+[Mapper]
+public static partial class CostDetailMapper
+{
+    public static ChargeItem.CostDetail Map(this InvoiceCostDetail invoiceCostDetail)
+    {
+        var costDetail = invoiceCostDetail.MapInternal();
+        costDetail.Booking = invoiceCostDetail.MapBooking();
+
+        return costDetail;
+    }
+
+    private static partial ChargeItem.CostDetail MapInternal(this InvoiceCostDetail costDetail);
 }
 
 [Mapper]

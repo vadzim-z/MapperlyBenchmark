@@ -10,7 +10,7 @@ public class Benchmark
     private IMapper autoMapper;
     private IList<FcrDetail> _fcrDetails;
     private IList<Library> _libraries;
-    private IList<CargoModel> _essoRateDetailsModels;
+    private IList<CargoModel> _cargoModels;
 
     [GlobalSetup]
     public void Setup()
@@ -33,7 +33,7 @@ public class Benchmark
                 .CreateListOfSize<Book>(size())
                 .Build())
             .Build();
-        _essoRateDetailsModels = _builder
+        _cargoModels = _builder
             .CreateListOfSize<CargoModel>(size())
             .All()
             .WithFactory(() => new CargoModel
@@ -53,8 +53,8 @@ public class Benchmark
 
         var chargeDetails = ChargeDetailsAutoMapper();
         var chargeDetails2 = ChargeDetailsMapperly();
-        var essoRateDetailsAutoMapperBenchmark = EssoRateDetailsAutoMapper();
-        var essoRateDetailsMapperlyBenchmark = EssoRateDetailsMapperly();
+        var cargoAutoMapper = CargoAutoMapper();
+        var cargoMapperly = CargoMapperly();
     }
 
     [Benchmark]
@@ -70,14 +70,14 @@ public class Benchmark
     }
 
     [Benchmark]
-    public List<ChargeItem> EssoRateDetailsAutoMapper()
+    public List<ChargeItem> CargoAutoMapper()
     {
-        return autoMapper.Map<List<ChargeItem>>(_essoRateDetailsModels);
+        return autoMapper.Map<List<ChargeItem>>(_cargoModels);
     }
     
     [Benchmark]
-    public List<ChargeItem> EssoRateDetailsMapperly()
+    public List<ChargeItem> CargoMapperly()
     {
-        return _essoRateDetailsModels.Select(x => x.Map()).ToList();
+        return _cargoModels.Select(x => x.Map()).ToList();
     }
 }
