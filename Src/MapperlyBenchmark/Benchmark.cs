@@ -10,15 +10,16 @@ public class Benchmark
     private IMapper autoMapper;
     private IList<FcrDetail> _fcrDetails;
     private IList<Library> _libraries;
+    private IList<CargoModel> _cargoModels;
 
     [GlobalSetup]
     public void Setup()
     {
         var _faker = new Faker();
         var _builder = new Builder();
-        var size = _faker.Random.Int(2, 5);
+        var size = () => _faker.Random.Int(3, 7);
         _fcrDetails = _builder
-            .CreateListOfSize<FcrDetail>(size)
+            .CreateListOfSize<FcrDetail>(size())
             .All()
             .WithFactory(_ => new FcrDetail
             {
@@ -26,49 +27,57 @@ public class Benchmark
             })
             .Build();
         _libraries = _builder
-            .CreateListOfSize<Library>(size)
+            .CreateListOfSize<Library>(size())
             .All()
             .With((x, i) => x.Books = _builder
-                .CreateListOfSize<Book>(size)
+                .CreateListOfSize<Book>(size())
                 .Build())
+            .Build();
+        _cargoModels = _builder
+            .CreateListOfSize<CargoModel>(size())
+            .All()
+            .WithFactory(() => new CargoModel
+            {
+                CostDetails = _builder.CreateListOfSize<InvoiceCostDetail>(size())
+                    .Build()
+            })
             .Build();
 
         var configuration = new MapperConfiguration(cfg =>
         {
             cfg.AddProfile<ChargeDetailsAutomapper>();
-            cfg.AddProfile<BookAutomapper>();
-            cfg.AddProfile<LibraryAutomapper>();
+            cfg.AddProfile<CargoAutoMapper>();
         });
 
         autoMapper = configuration.CreateMapper();
 
-        var chargeDetails = ChargeDetailsAutoMapperBenchmark();
-        var chargeDetails2 = ChargeDetailsMapperlyBenchmark();
-        var libraryDtos = LibraryAutoMapperBenchmark();
-        var libraryDtos2 = LibraryMapperlyBenchmark();
+        var chargeDetails = ChargeDetailsAutoMapper();
+        var chargeDetails2 = ChargeDetailsMapperly();
+        var cargoAutoMapper = CargoAutoMapper();
+        var cargoMapperly = CargoMapperly();
     }
 
     [Benchmark]
-    public List<ChargeDetail> ChargeDetailsAutoMapperBenchmark()
+    public List<ChargeDetail> ChargeDetailsAutoMapper()
     {
         return autoMapper.Map<List<ChargeDetail>>(_fcrDetails);
     }
 
     [Benchmark]
-    public List<ChargeDetail> ChargeDetailsMapperlyBenchmark()
+    public List<ChargeDetail> ChargeDetailsMapperly()
     {
         return _fcrDetails.Select(x => x.MapToChargeDetail()).ToList();
     }
-    
-    [Benchmark]
-    public IList<LibraryDto> LibraryMapperlyBenchmark()
-    {
-        return _libraries.Select(x => x.Map()).ToList();
-    }
 
     [Benchmark]
-    public List<LibraryDto> LibraryAutoMapperBenchmark()
+    public List<ChargeItem> CargoAutoMapper()
     {
-        return autoMapper.Map<List<LibraryDto>>(_libraries);
+        return autoMapper.Map<List<ChargeItem>>(_cargoModels);
+    }
+    
+    [Benchmark]
+    public List<ChargeItem> CargoMapperly()
+    {
+        return _cargoModels.Select(x => x.Map()).ToList();
     }
 }
