@@ -3,5 +3,5 @@
 public class LibraryDto
 {
     public long Id { get; set; }
-    public IEnumerable<BookDto> Books { get; init; }
+    public IEnumerable<BookCase> BookCases { get; init; } = Array.Empty<BookCase>();
 }
