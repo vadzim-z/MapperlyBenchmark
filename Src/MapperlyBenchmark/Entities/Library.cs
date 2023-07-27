@@ -3,5 +3,5 @@
 public class Library
 {
     public long Id { get; set; }
-    public IEnumerable<Book> Books { get; set; }
+    public IEnumerable<Book> Books { get; set; } = Array.Empty<Book>();
 }
