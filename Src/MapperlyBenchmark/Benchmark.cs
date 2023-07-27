@@ -47,6 +47,8 @@ public class Benchmark
         {
             cfg.AddProfile<ChargeDetailsAutomapper>();
             cfg.AddProfile<CargoAutoMapper>();
+            cfg.AddProfile<BookAutomapper>();
+            cfg.AddProfile<LibraryAutomapper>();
         });
 
         autoMapper = configuration.CreateMapper();
@@ -55,6 +57,8 @@ public class Benchmark
         var chargeDetails2 = ChargeDetailsMapperly();
         var cargoAutoMapper = CargoAutoMapper();
         var cargoMapperly = CargoMapperly();
+        var libraryDtos = LibraryAutoMapper();
+        var libraryDtos2 = LibraryMapperly();
     }
 
     [Benchmark]
@@ -79,5 +83,17 @@ public class Benchmark
     public List<ChargeItem> CargoMapperly()
     {
         return _cargoModels.Select(x => x.Map()).ToList();
+    }
+
+    [Benchmark]
+    public List<LibraryDto> LibraryAutoMapper()
+    {
+        return autoMapper.Map<List<LibraryDto>>(_libraries);
+    }
+
+    [Benchmark]
+    public IList<LibraryDto> LibraryMapperly()
+    {
+        return _libraries.Select(x => x.Map()).ToList();
     }
 }
