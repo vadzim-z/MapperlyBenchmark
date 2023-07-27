@@ -12,12 +12,14 @@ The benchmarking tests were run using BenchmarkDotNet on a machine with the foll
 
 The results are as follows:
 
-|                  Method |     Mean |    Error |   StdDev |
-|------------------------ |---------:|---------:|---------:|
-| ChargeDetailsAutoMapper | 609.4 ns | 11.95 ns | 20.94 ns |
-|   ChargeDetailsMapperly | 117.9 ns |  2.41 ns |  4.71 ns |
-|         CargoAutoMapper | 915.0 ns | 18.05 ns | 27.57 ns |
-|           CargoMapperly | 756.1 ns | 15.04 ns | 32.38 ns |
+|                  Method |       Mean |    Error |    StdDev |     Median |
+|------------------------ |-----------:|---------:|----------:|-----------:|
+| ChargeDetailsAutoMapper |   328.2 ns |  6.62 ns |  16.96 ns |   327.1 ns |
+|   ChargeDetailsMapperly |   124.3 ns |  3.08 ns |   8.93 ns |   122.9 ns |
+|         CargoAutoMapper | 1,932.1 ns | 44.90 ns | 129.56 ns | 1,900.0 ns |
+|           CargoMapperly | 1,697.3 ns | 33.97 ns |  93.00 ns | 1,681.3 ns |
+|       LibraryAutoMapper |   800.4 ns | 19.86 ns |  57.93 ns |   791.0 ns |
+|         LibraryMapperly |   204.8 ns |  4.62 ns |  13.39 ns |   200.0 ns |
 
 The `Mean` column shows the average time taken to run each method. The `Error` column shows half of the 99.9% confidence interval, and the `StdDev` column shows the standard deviation of all measurements.
 
