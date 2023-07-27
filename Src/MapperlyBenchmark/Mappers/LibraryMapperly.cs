@@ -11,13 +11,17 @@ public static partial class LibraryMapperly
 
     private static BookCase CreateBookCase(Book book)
         => book.MapBookCase();
-    //private static BookDto CreateBookCase(Book book)
-    //    => book.MapBook();
 }
 
 [Mapper]
 public static partial class BookCaseMapperly
 {
+    public static BookCase MapBookCase(this Book book)
+    {
+        var bookCase = book.MapBookCaseInternal();
+
+    }
+
     //[MapProperty(new[] { nameof(Book.Id) },
     //    new[] { nameof(BookCase.BookDto), nameof(BookCase.BookDto.BookId) })]
     //[MapProperty(new[] { nameof(Book.Author) },
@@ -25,7 +29,7 @@ public static partial class BookCaseMapperly
     //[MapProperty(new[] { nameof(Book.Title) },
     //    new[] { nameof(BookCase.BookDto), nameof(BookCase.BookDto.BookTitle) })]
     [MapProperty(nameof(Book), nameof(BookCase.BookDto))]
-    public static partial BookCase MapBookCase(this Book book);
+    private static partial BookCase MapBookCaseInternal(this Book book);
 
     private static BookDto CreateBookDto(Book book)
         => book.Map();
