@@ -16,6 +16,12 @@ public class CargoAutoMapper : Profile
 
         CreateMap<InvoiceCostDetail, ChargeItem.CostDetail>()
             .ForPath(dest => dest.Booking.BookingId, act => act.MapFrom(src => src.BookingId))
-            .ForPath(dest => dest.Booking.BookingNumber, act => act.MapFrom(src => src.BookingNumber));
+            .ForPath(dest => dest.Booking.BookingNumber, act => act.MapFrom(src => src.BookingNumber))
+            .ForPath(dest => dest.Cbl.CblId, act => act.MapFrom(src => src.CblId))
+            .ForPath(dest => dest.Cbl.CblNumber, act => act.MapFrom(src => src.CblNumber))
+            .ForPath(dest => dest.ExportJob.ExportJobNumber, act => act.MapFrom(src => src.DocumentNumber))
+            .ForPath(dest => dest.ExportJob.ExportJobId, act => act.MapFrom(src => src.DocumentId))
+            .ForPath(dest => dest.Equipment.EquipmentId, act => act.MapFrom(src => src.EquipmentId))
+            .ForPath(dest => dest.Equipment.EquipmentNumber, act => act.MapFrom(src => src.EquipmentNumber));
     }
 }
