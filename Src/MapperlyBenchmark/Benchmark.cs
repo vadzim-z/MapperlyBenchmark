@@ -46,45 +46,29 @@ public class Benchmark
         var configuration = new MapperConfiguration(cfg =>
         {
             cfg.AddProfile<ChargeDetailsAutomapper>();
-            cfg.AddProfile<BookAutomapper>();
-            cfg.AddProfile<LibraryAutomapper>();
             cfg.AddProfile<CargoAutoMapper>();
         });
 
         autoMapper = configuration.CreateMapper();
 
-        //var chargeDetails = ChargeDetailsAutoMapperBenchmark();
-        //var chargeDetails2 = ChargeDetailsMapperlyBenchmark();
-        //var libraryDtos = LibraryAutoMapperBenchmark();
-        //var libraryDtos2 = LibraryMapperlyBenchmark();
+        var chargeDetails = ChargeDetailsAutoMapper();
+        var chargeDetails2 = ChargeDetailsMapperly();
         var essoRateDetailsAutoMapperBenchmark = EssoRateDetailsAutoMapper();
         var essoRateDetailsMapperlyBenchmark = EssoRateDetailsMapperly();
     }
 
-    //[Benchmark]
-    //public List<ChargeDetail> ChargeDetailsAutoMapper()
-    //{
-    //    return autoMapper.Map<List<ChargeDetail>>(_fcrDetails);
-    //}
+    [Benchmark]
+    public List<ChargeDetail> ChargeDetailsAutoMapper()
+    {
+        return autoMapper.Map<List<ChargeDetail>>(_fcrDetails);
+    }
 
-    //[Benchmark]
-    //public List<ChargeDetail> ChargeDetailsMapperly()
-    //{
-    //    return _fcrDetails.Select(x => x.MapToChargeDetail()).ToList();
-    //}
-    
-    //[Benchmark]
-    //public IList<LibraryDto> LibraryMapperly()
-    //{
-    //    return _libraries.Select(x => x.Map()).ToList();
-    //}
+    [Benchmark]
+    public List<ChargeDetail> ChargeDetailsMapperly()
+    {
+        return _fcrDetails.Select(x => x.MapToChargeDetail()).ToList();
+    }
 
-    //[Benchmark]
-    //public List<LibraryDto> LibraryAutoMapper()
-    //{
-    //    return autoMapper.Map<List<LibraryDto>>(_libraries);
-    //}
-    
     [Benchmark]
     public List<ChargeItem> EssoRateDetailsAutoMapper()
     {
